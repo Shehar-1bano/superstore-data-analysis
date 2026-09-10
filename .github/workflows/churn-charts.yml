@@ -1,0 +1,48 @@
+name: Generate Churn Charts
+
+on:
+  push:
+    paths:
+      - 'customer-churn-analysis/**'
+      - '.github/workflows/churn-charts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-charts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: customer-churn-analysis
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate charts
+        env:
+          MPLBACKEND: Agg
+        run: python churn_analysis.py
+
+      - name: Commit generated charts
+        working-directory: .
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add customer-churn-analysis/*.png
+          if git diff --cached --quiet; then
+            echo 'No chart changes to commit.'
+          else
+            git commit -m 'Generate customer churn charts'
+            git push
+          fi
