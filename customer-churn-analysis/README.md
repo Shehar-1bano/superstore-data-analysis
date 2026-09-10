@@ -28,12 +28,15 @@ The dataset contains customer-level information including:
 - Payment method
 - Churn status
 
+See `data_dictionary.md` for field definitions and derived groups.
+
 ## Tools & Technologies
 
 - Python
 - Pandas
 - Matplotlib
 - GitHub
+- GitHub Actions
 
 ## Analysis Performed
 
@@ -59,7 +62,7 @@ The dataset contains customer-level information including:
 
 ### Visualizations
 
-The Python script generates these charts:
+The analysis generates six charts:
 
 - `churn_by_contract.png`
 - `churn_by_internet_service.png`
@@ -67,6 +70,8 @@ The Python script generates these charts:
 - `churn_by_payment_method.png`
 - `churn_by_age_group.png`
 - `churn_by_tenure_group.png`
+
+GitHub Actions automatically regenerates these PNG charts whenever files in this project are updated, so the repository can keep the analysis outputs synchronized with the code and dataset.
 
 ## Key Analytical Approach
 
@@ -78,12 +83,18 @@ The analysis is designed to help a business identify customer segments with rela
 
 The findings should be treated as **associations rather than proof of causation**. A higher churn rate in a group does not by itself prove that the group's characteristic causes customers to leave.
 
-## How to Run
+## How to Run Locally
 
 Open a terminal inside the `customer-churn-analysis` folder and run:
 
 ```bash
 py churn_analysis.py
+```
+
+Install dependencies first if needed:
+
+```bash
+pip install -r requirements.txt
 ```
 
 The script prints the analysis results and opens the charts one by one. Close each chart window to continue to the next analysis.
@@ -95,9 +106,15 @@ customer-churn-analysis/
 ├── churn_analysis.py
 ├── churn_data.csv
 ├── requirements.txt
-└── README.md
+├── data_dictionary.md
+├── churn_by_contract.png
+├── churn_by_internet_service.png
+├── churn_by_tech_support.png
+├── churn_by_payment_method.png
+├── churn_by_age_group.png
+└── churn_by_tenure_group.png
 ```
 
 ## Portfolio Note
 
-This project demonstrates practical data analyst skills including data inspection, data-quality checking, grouping and aggregation with Pandas, churn-rate analysis, visualization with Matplotlib, and business-oriented interpretation.
+This project demonstrates practical data analyst skills including data inspection, data-quality checking, grouping and aggregation with Pandas, churn-rate analysis, visualization with Matplotlib, automated chart generation, and business-oriented interpretation.
